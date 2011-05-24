@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ruby on Rails: Welcome aboard</title>
+    <script type="text/javascript">
+      function about() {
+        info = document.getElementById('about-content');
+        if (window.XMLHttpRequest)
+          { xhr = new XMLHttpRequest(); }
+        else
+          { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
+        xhr.open("GET","rails/info/properties",false);
+        xhr.send("");
+        info.innerHTML = xhr.responseText;
+        info.style.display = 'block'
+      }
+    </script>
+    <script src="http://cdn.socket.io/stable/socket.io.js"></script>
+</head>
+<body>
+    <script>
+        socket = new io.Socket();
+        socket.connect();
+        socket.send('some data');
+        socket.on('message', function(data){
+            alert('got some data:' + data);
+        });
+        
+    </script>
+    <div id="page">
+        Navigate to this page at localhost:80.
+        <br/><br/>
+        HAProxy will forward normal HTTP requests to Rails, running on localhost:8080
+        <br/><br/>
+        HAProxy will forward websocket requests to node.js, running on localhost:3000
+        <br/><br/>
+        When this page loads, it opens a websocket connection. The node.js app sends
+        back a message when it receives the connection. The client will popup an
+        alert when it receives the message back from the server.
+    </div>
+  </body>
+</html>
